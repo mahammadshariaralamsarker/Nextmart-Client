@@ -41,13 +41,7 @@ export default function Navbar() {
           <Button variant="outline" className="rounded-full p-0 size-10">
             <ShoppingBag />
           </Button>
-          {user ? (
-            <Link href="/login">
-              <Button className="rounded-full " variant="outline">
-                Login
-              </Button>
-            </Link>
-          ) : (
+          {user ?  (
             <>
               <Link href="/create-shop">
                 <Button className="rounded-full " variant="outline">
@@ -81,7 +75,13 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </>
-          )}
+          ):(
+            <Link href="/login">
+              <Button className="rounded-full " variant="outline">
+                Login
+              </Button>
+            </Link>
+          ) }
         </nav>
       </div>
     </header>
