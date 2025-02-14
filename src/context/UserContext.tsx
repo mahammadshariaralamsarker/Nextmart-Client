@@ -1,6 +1,5 @@
 import { getCurrentUser } from "@/services/AuthService";
 import { IUser } from "@/types";
-import { error } from "console";
 import React, {
   createContext,
   Dispatch,

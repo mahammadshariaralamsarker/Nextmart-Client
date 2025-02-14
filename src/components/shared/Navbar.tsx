@@ -1,7 +1,7 @@
- 
 import Logo from "@/app/assets/svgs/Logo";
 import { Button } from "../ui/button";
 import { Heart, ShoppingBag } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -25,6 +25,12 @@ export default function Navbar() {
           <Button variant="outline" className="rounded-full p-0 size-10">
             <ShoppingBag />
           </Button>
+          <Link href="/login" >
+            <Button className="rounded-full " variant='outline'>Login</Button>
+          </Link>
+          <Link href="/create-shop">
+            <Button className="rounded-full " variant='outline'>Create Shop </Button>
+          </Link>
         </nav>
       </div>
     </header>
