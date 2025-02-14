@@ -12,7 +12,12 @@ export const registerUser = async (userInfo: FieldValues) => {
       },
       body: JSON.stringify(userInfo),
     });
-    return res.json();
+    const result = await res.json();
+    console.log(result);
+    if (result?.success) {
+      (await cookies()).set("accessToken", result?.data?.accessToken);
+    }
+    return result;
   } catch (error) {
     console.log(error);
   }
