@@ -1,4 +1,5 @@
 "use client";
+import ReCAPTCHA from "react-google-recaptcha";
 import Logo from "@/app/assets/svgs/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,10 +12,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginUser } from "@/services/AuthService";
+import { loginUser, reCaptchaTokenVerification } from "@/services/AuthService";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 
@@ -26,10 +27,21 @@ const LoginForm = () => {
   const {
     formState: { isSubmitting },
   } = form;
+  const [reCaptchaStatus, setReCaptchaStatus] = useState(false);
+
+  const handleRecaptcha = async (value: string | null) => {
+    try {
+      const res = await reCaptchaTokenVerification(value!);
+      if (res?.success) {
+        setReCaptchaStatus(true);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await loginUser(data);
-      console.log(res);
       if (res?.success) {
         toast.success(res?.message);
       } else {
@@ -78,14 +90,23 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-
-          <Button type="submit" className="mt-5 w-full">
+          <div className="grid place-items-center mt-4">
+            <ReCAPTCHA
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY!}
+              onChange={handleRecaptcha}
+            />
+          </div>
+          <Button
+            type="submit"
+            className="mt-5 w-full"
+            disabled={reCaptchaStatus ? false : true}
+          >
             {isSubmitting ? "Logging...." : "Login"}
           </Button>
         </form>
       </Form>
       <p className="text-sm text-gray-600 text-center my-3">
-        Did not have an account ? 
+        Did not have an account ?
         <Link href="/register" className="text-primary ml-1">
           Register
         </Link>
