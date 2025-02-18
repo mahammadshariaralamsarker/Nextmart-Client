@@ -34,13 +34,16 @@ import ImagePreviewer from "@/components/ui/core/NMImageUploader/imagePreviewer"
 import Logo from "@/app/assets/svgs/Logo";
 import { IBrand } from "@/types/brand";
 import { getAllCategory } from "@/services/Category";
+import { addProduct } from "@/services/Product";
+import { toast } from "sonner"; 
+import { useRouter } from "next/navigation";
 
 export default function AddProductsForm() {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
   const [categories, setCategories] = useState<ICategory[] | []>([]);
   const [brands, setBrands] = useState<IBrand[] | []>([]);
-
+const router = useRouter()
   const form = useForm({
     defaultValues: {
       name: "",
@@ -102,27 +105,46 @@ export default function AddProductsForm() {
   }, []);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    try {
-      const availableColors = data?.availableColors.map(
-        (color: { value: string }) => color.value
-      );
-      const keyFeatures = data?.keyFeatures.map(
-        (feature: { value: string }) => feature.value
-      );
+    const availableColors = data?.availableColors.map(
+      (color: { value: string }) => color.value
+    );
+    const keyFeatures = data?.keyFeatures.map(
+      (feature: { value: string }) => feature.value
+    );
 
-      const specification: { [key: string]: string } = {};
+    const specification: { [key: string]: string } = {};
 
-      data?.specification.forEach(
-        (item: { key: string; value: string }) =>
-          (specification[item.key] = item.value)
-      );
+    data?.specification.forEach(
+      (item: { key: string; value: string }) =>
+        (specification[item.key] = item.value)
+    );
 
-      console.log("availableColors", availableColors);
-      console.log("feature", keyFeatures);
-      console.log("specification", specification);
-    } catch (error) {
-      console.log(error);
+    const modifiedData = {
+      ...data,
+      availableColors,
+      keyFeatures,
+      specification,
+      price: parseFloat(data?.price),
+      stock: parseInt(data?.stock),
+      weight: parseFloat(data?.weight),
+    }; 
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(modifiedData));
+    for (const file of imageFiles) {
+      formData.append("images", file);
     }
+    try {
+      const res = await addProduct(formData)
+      console.log(res);
+      if(res?.success){
+        toast.success(res?.message)
+        router.push('/user/shop/products')
+      }
+      else{
+        toast.error(res?.message)
+      }
+
+    } catch (error) {}
   };
 
   return (
@@ -229,7 +251,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Stock</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input type="number" {...field} value={field.value || ""} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -242,7 +264,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Weight</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input type="number" {...field} value={field.value || ""} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
