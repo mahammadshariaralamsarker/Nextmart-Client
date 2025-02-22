@@ -12,8 +12,7 @@ type TCategoriesProps = {
 };
 
 const ManageCategories = ({ categories }: TCategoriesProps) => {
-  const handleDelete = async(data: ICategory) => {
-    console.log(data._id);
+  const handleDelete = async(data: ICategory) => { 
     const res = await deleteCategory(data._id)
     console.log(res);
   };

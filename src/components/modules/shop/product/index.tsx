@@ -1,12 +1,12 @@
 "use client";
 
-import { NMTable } from "@/components/ui/core/NMTable/index";
-import { IProduct } from "@/types";
+import { NMTable } from "@/components/ui/core/NMTable/index"; 
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Plus, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { IProduct } from "@/types/product";
 
 const ManageProducts = ({ products }: { products: IProduct[] }) => {
   const router = useRouter();

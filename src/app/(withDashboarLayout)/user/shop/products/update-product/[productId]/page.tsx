@@ -8,8 +8,7 @@ const UpdateProductPage = async ({
 }) => {
   const { productId } = await params;
 
-  const { data: product } = await getSingleProduct(productId);
-  //   console.log(product);
+  const { data: product } = await getSingleProduct(productId); 
 
   return (
     <div className="flex justify-center items-center">

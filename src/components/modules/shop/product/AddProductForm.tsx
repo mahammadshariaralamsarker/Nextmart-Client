@@ -134,8 +134,7 @@ export default function AddProductsForm() {
       formData.append("images", file);
     }
     try {
-      const res = await addProduct(formData);
-      console.log(res);
+      const res = await addProduct(formData); 
       if (res?.success) {
         toast.success(res?.message);
         router.push("/user/shop/products");

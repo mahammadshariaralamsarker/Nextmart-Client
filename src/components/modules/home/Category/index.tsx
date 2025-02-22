@@ -6,8 +6,7 @@ import { ICategory } from "@/types";
 import Link from "next/link";
 
 const Category = async () => {
-const { data: categories, } = await getAllCategories();
-  console.log(categories);
+const { data: categories, } = await getAllCategories(); 
   return (
     <div className="container mx-auto my-20">
       <div className="flex items-center justify-between">

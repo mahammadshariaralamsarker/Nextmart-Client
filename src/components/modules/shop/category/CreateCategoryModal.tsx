@@ -47,7 +47,7 @@ const CreateCategoryModal = () => {
         toast.error(res?.message)
       }
     } catch (error) {
-
+      console.log(error);
     }
   };
 
