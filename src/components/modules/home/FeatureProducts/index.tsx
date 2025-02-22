@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button"; 
+import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ui/core/ProductCard";
-import { getAllProducts } from "@/services/Product"; 
+import { getAllProducts } from "@/services/Product";
 import { IProduct } from "@/types/product";
 import Link from "next/link";
 
@@ -20,11 +20,9 @@ const FeaturedProducts = async () => {
         </div>
 
         <div className="grid grid-cols-5 gap-8 my-5">
-          {Array(5)
-            .fill(products?.[0])
-            .map((product: IProduct, idx: number) => (
-              <ProductCard key={idx} product={product} />
-            ))}
+          {products?.map((product: IProduct, idx: number) => (
+            <ProductCard key={idx} product={product} />
+          ))}
         </div>
       </div>
     </div>

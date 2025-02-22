@@ -19,7 +19,7 @@ const { data: categories, } = await getAllCategories();
       </div>
       <div className="grid grid-cols-6 gap-8 my-5">
        {
-        Array(12).fill(categories?.[2]).map((category:ICategory,index:number) => (<CategoryCard key={index} category={category}></CategoryCard>))
+          categories?.map((category:ICategory,index:number) => (<CategoryCard key={index} category={category}></CategoryCard>))
        }
       </div>
     </div>

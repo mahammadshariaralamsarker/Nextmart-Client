@@ -15,12 +15,12 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"; 
 import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import { useState } from "react";
 import { toast } from "sonner";
 import { createBrand } from "@/services/Brand";
+import ImagePreviewer from "../NMImageUploader/imagePreviewer";
 
 const CreateBrandModal = () => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);

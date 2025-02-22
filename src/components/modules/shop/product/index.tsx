@@ -13,7 +13,7 @@ import { useState } from "react";
 import DiscountModal from "./DiscountModal";
 const ManageProducts = ({ products }: { products: IProduct[] }) => {
   const router = useRouter();
-  const [selectedId, setSelectedId] = useState<string[] | []>([]);
+  const [selectedId, setSelectedIds] = useState<string[] | []>([]);
   console.log(selectedId);
 
   const handleView = (product: IProduct) => {
@@ -42,9 +42,9 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
           checked={row.getIsSelected()}
           onCheckedChange={(value) => {
             if (value) {
-              setSelectedId((prev) => [...prev, row.original._id]);
+              setSelectedIds((prev) => [...prev, row.original._id]);
             } else {
-              setSelectedId(selectedId.filter((id) => id !== row.original._id));
+              setSelectedIds(selectedId.filter((id) => id !== row.original._id));
             }
             row.toggleSelected(!!value);
           }}
@@ -155,7 +155,7 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
           >
             Add Product <Plus />
           </Button>
-          <DiscountModal selectedIds={selectedId} />
+          <DiscountModal selectedIds={selectedId} setSelectedIds={setSelectedIds}  />
         </div>
       </div>
       <NMTable columns={columns} data={products || []} />

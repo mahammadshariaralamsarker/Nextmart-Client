@@ -46,6 +46,7 @@ const DiscountModal = ({ selectedIds, setSelectedIds }: TModalProps) => {
       } else {
         toast.error(res.message);
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(err);
     }
