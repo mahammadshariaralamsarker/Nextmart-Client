@@ -1,6 +1,6 @@
 "use client";
 
-import { NMTable } from "@/components/ui/core/NMTable/index"; 
+import { NMTable } from "@/components/ui/core/NMTable/index";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Plus, Trash } from "lucide-react";
 import Image from "next/image";
@@ -8,8 +8,12 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { IProduct } from "@/types/product";
 
+import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 const ManageProducts = ({ products }: { products: IProduct[] }) => {
   const router = useRouter();
+  const [selectedId, setSelectedId] = useState<string[] | []>([]);
+console.log(selectedId);
 
   const handleView = (product: IProduct) => {
     console.log("Viewing product:", product);
@@ -20,6 +24,44 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
   };
 
   const columns: ColumnDef<IProduct>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) =>  
+            {
+              if(value){
+                setSelectedId((prev)=>[...prev,row.original._id])
+              }
+              else{
+                setSelectedId(selectedId.filter(id =>id !== row.original._id))
+              }
+              row.toggleSelected(!!value)}}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("status")}</div>
+      ),
+    },
+
     {
       accessorKey: "name",
       header: "Product Name",
