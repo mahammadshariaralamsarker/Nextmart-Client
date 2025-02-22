@@ -1,5 +1,7 @@
 .banner{
-  background: url('../../../../app/assets/Background.jpg');
+  /* background: url('../../../../app/assets/Background.jpg'); */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.217)), 
+  url('../../../../app/assets/Background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
