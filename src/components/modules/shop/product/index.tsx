@@ -10,10 +10,11 @@ import { IProduct } from "@/types/product";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
+import DiscountModal from "./DiscountModal";
 const ManageProducts = ({ products }: { products: IProduct[] }) => {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<string[] | []>([]);
-console.log(selectedId);
+  console.log(selectedId);
 
   const handleView = (product: IProduct) => {
     console.log("Viewing product:", product);
@@ -39,15 +40,14 @@ console.log(selectedId);
       cell: ({ row }) => (
         <Checkbox
           checked={row.getIsSelected()}
-          onCheckedChange={(value) =>  
-            {
-              if(value){
-                setSelectedId((prev)=>[...prev,row.original._id])
-              }
-              else{
-                setSelectedId(selectedId.filter(id =>id !== row.original._id))
-              }
-              row.toggleSelected(!!value)}}
+          onCheckedChange={(value) => {
+            if (value) {
+              setSelectedId((prev) => [...prev, row.original._id]);
+            } else {
+              setSelectedId(selectedId.filter((id) => id !== row.original._id));
+            }
+            row.toggleSelected(!!value);
+          }}
           aria-label="Select row"
         />
       ),
@@ -155,6 +155,7 @@ console.log(selectedId);
           >
             Add Product <Plus />
           </Button>
+          <DiscountModal selectedIds={selectedId} />
         </div>
       </div>
       <NMTable columns={columns} data={products || []} />
