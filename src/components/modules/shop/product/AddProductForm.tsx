@@ -144,7 +144,9 @@ const router = useRouter()
         toast.error(res?.message)
       }
 
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -1,0 +1,9 @@
+.banner{
+  background: url('../../../../app/assets/Background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 500px;
+  opacity: 100px; 
+
+}
