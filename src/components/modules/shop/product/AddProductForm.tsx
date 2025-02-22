@@ -33,9 +33,9 @@ import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/imagePreviewer";
 import Logo from "@/app/assets/svgs/Logo";
 import { IBrand } from "@/types/brand";
-import { getAllCategory } from "@/services/Category";
+import { getAllCategories } from "@/services/Category";
 import { addProduct } from "@/services/Product";
-import { toast } from "sonner"; 
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export default function AddProductsForm() {
@@ -43,7 +43,7 @@ export default function AddProductsForm() {
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
   const [categories, setCategories] = useState<ICategory[] | []>([]);
   const [brands, setBrands] = useState<IBrand[] | []>([]);
-const router = useRouter()
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -93,7 +93,7 @@ const router = useRouter()
   useEffect(() => {
     const fetchData = async () => {
       const [categoriesData, brandsData] = await Promise.all([
-        getAllCategory(),
+        getAllCategories(),
         getAllBrands(),
       ]);
 
@@ -127,23 +127,21 @@ const router = useRouter()
       price: parseFloat(data?.price),
       stock: parseInt(data?.stock),
       weight: parseFloat(data?.weight),
-    }; 
+    };
     const formData = new FormData();
     formData.append("data", JSON.stringify(modifiedData));
     for (const file of imageFiles) {
       formData.append("images", file);
     }
     try {
-      const res = await addProduct(formData)
+      const res = await addProduct(formData);
       console.log(res);
-      if(res?.success){
-        toast.success(res?.message)
-        router.push('/user/shop/products')
+      if (res?.success) {
+        toast.success(res?.message);
+        router.push("/user/shop/products");
+      } else {
+        toast.error(res?.message);
       }
-      else{
-        toast.error(res?.message)
-      }
-
     } catch (error) {
       console.log(error);
     }

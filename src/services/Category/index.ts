@@ -17,7 +17,7 @@ export const createCategory = async (data: FormData) => {
   }
 };
 
-export const getAllCategory = async () => {
+export const getAllCategories = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/category`);
     return res.json();
@@ -25,14 +25,17 @@ export const getAllCategory = async () => {
     return Error(error);
   }
 };
-export const deleteCategory = async (id:string) => {
+export const deleteCategory = async (id: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/category/${id}`,{
-      method:'DELETE',
-      headers: {
-        Authorization: (await cookies()).get("accessToken")!.value,
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/category/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+      }
+    );
     return res.json();
   } catch (error: any) {
     return Error(error);

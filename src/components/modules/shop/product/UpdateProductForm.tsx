@@ -18,8 +18,8 @@ import {
 } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
-import NMImageUploader from "@/components/ui/core/NMImageUploader"; 
-import { Plus } from "lucide-react"; 
+import NMImageUploader from "@/components/ui/core/NMImageUploader";
+import { Plus } from "lucide-react";
 
 import {
   Select,
@@ -28,11 +28,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { IBrand, ICategory, IProduct } from "@/types"; 
+import { IBrand, ICategory, IProduct } from "@/types";
 import { getAllBrands } from "@/services/Brand";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner"; 
-import { getAllCategory } from "@/services/Category";
+import { toast } from "sonner";
+import { getAllCategories } from "@/services/Category";
 import Logo from "@/app/assets/svgs/Logo";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/imagePreviewer";
 import { updateProduct } from "@/services/Product";
@@ -106,7 +106,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
   useEffect(() => {
     const fetchData = async () => {
       const [categoriesData, brandsData] = await Promise.all([
-        getAllCategory(),
+        getAllCategories(),
         getAllBrands(),
       ]);
 
@@ -131,7 +131,6 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
       (item: { key: string; value: string }) =>
         (specification[item.key] = item.value)
     );
- 
 
     const modifiedData = {
       ...data,
