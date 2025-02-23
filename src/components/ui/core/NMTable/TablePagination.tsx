@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "../../button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
-const TablePagination = () => {
-  const totalPage = 10;
+const TablePagination = ({ totalPage }: { totalPage: number }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const [currentPage, setCurrentPage] = useState(1);
   const handlePrev = () => {
     if (currentPage > 1) {
@@ -19,7 +21,10 @@ const TablePagination = () => {
   return (
     <div className="flex items-center gap-4 my-5">
       <Button
-        onClick={() => handlePrev()}
+        onClick={() => {
+          handlePrev();
+          router.push(`${pathname}?page=${currentPage - 1}`);
+        }}
         disabled={currentPage === 1}
         variant="outline"
         size="sm"
@@ -29,7 +34,10 @@ const TablePagination = () => {
       </Button>
       {[...Array(totalPage)].map((_, idx) => (
         <Button
-          onClick={() => setCurrentPage(idx + 1)}
+          onClick={() => {
+            setCurrentPage(idx + 1);
+            router.push(`${pathname}?page=${idx + 1}`);
+          }}
           key={idx}
           variant={currentPage === idx + 1 ? "default" : "outline"}
           size="sm"
@@ -40,7 +48,10 @@ const TablePagination = () => {
       ))}
 
       <Button
-        onClick={() => handleNext()}
+        onClick={() => {
+          handleNext();
+          router.push(`${pathname}?page=${currentPage + 1}`);
+        }}
         disabled={currentPage === totalPage}
         variant="outline"
         size="sm"
