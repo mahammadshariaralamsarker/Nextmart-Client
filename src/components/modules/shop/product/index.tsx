@@ -12,10 +12,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import DiscountModal from "./DiscountModal";
 import TablePagination from "@/components/ui/core/NMTable/TablePagination";
-const ManageProducts = ({ products }: { products: IProduct[] }) => {
+import { IMeta } from "@/types";
+const ManageProducts = ({
+  products,
+  meta,
+}: {
+  products: IProduct[];
+  meta: IMeta;
+}) => {
   const router = useRouter();
   const [selectedId, setSelectedIds] = useState<string[] | []>([]);
-  console.log(selectedId);
 
   const handleView = (product: IProduct) => {
     console.log("Viewing product:", product);
@@ -45,7 +51,9 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
             if (value) {
               setSelectedIds((prev) => [...prev, row.original._id]);
             } else {
-              setSelectedIds(selectedId.filter((id) => id !== row.original._id));
+              setSelectedIds(
+                selectedId.filter((id) => id !== row.original._id)
+              );
             }
             row.toggleSelected(!!value);
           }}
@@ -156,11 +164,14 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
           >
             Add Product <Plus />
           </Button>
-          <DiscountModal selectedIds={selectedId} setSelectedIds={setSelectedIds}  />
+          <DiscountModal
+            selectedIds={selectedId}
+            setSelectedIds={setSelectedIds}
+          />
         </div>
       </div>
       <NMTable columns={columns} data={products || []} />
-      <TablePagination/>
+      <TablePagination totalPage={meta.totalPage} />
     </div>
   );
 };
