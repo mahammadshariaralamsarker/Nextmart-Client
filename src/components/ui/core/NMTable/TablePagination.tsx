@@ -16,8 +16,7 @@ const TablePagination = ({ totalPage }: { totalPage: number }) => {
     if (currentPage < totalPage) {
       setCurrentPage(currentPage + 1);
     }
-  };
-  console.log(currentPage);
+  }; 
   return (
     <div className="flex items-center gap-4 my-5">
       <Button
