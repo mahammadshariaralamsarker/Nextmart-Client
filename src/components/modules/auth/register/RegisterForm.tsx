@@ -30,8 +30,7 @@ const RegisterForm = () => {
   const passwordConfirm = form.watch("passwordConfirm");
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const res = await registerUser(data);
-      console.log(res);
+      const res = await registerUser(data); 
       if (res?.success) {
         toast.success(res?.message);
       } else {
