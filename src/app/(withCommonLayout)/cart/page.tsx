@@ -1,4 +1,4 @@
- 
+import Address from "@/components/modules/Cart/Adress";
 import CartProducts from "@/components/modules/Cart/CartProduct";
 import Coupon from "@/components/modules/Cart/Coupon";
 import PaymentDetails from "@/components/modules/Cart/PaymentDetails";
@@ -12,7 +12,8 @@ const CartPage = () => {
       <div className="grid grid-cols-12 gap-8 my-5">
         <CartProducts />
         <Coupon />
-        <PaymentDetails/>
+        <Address />
+        <PaymentDetails />
       </div>
     </NMContainer>
   );

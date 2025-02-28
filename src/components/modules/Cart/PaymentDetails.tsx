@@ -6,6 +6,7 @@ import { useAppSelector } from "@/redux/hooks";
 
 export default function PaymentDetails() {
   const Subtotal = useAppSelector(subtotalSelector)
+  
   const handleOrder = async () => {
     console.log("handle order");
   };
