@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import {
+  grandTotal,
   orderSelector,
   shippingCostSelector,
   subtotalSelector,
@@ -12,7 +13,7 @@ export default function PaymentDetails() {
   const Subtotal = useAppSelector(subtotalSelector);
   const shippingCost = useAppSelector(shippingCostSelector); 
   const order = useAppSelector(orderSelector); 
-
+  const grandtotal = useAppSelector(grandTotal)
   const handleOrder = async () => { 
     console.log("order", order);
 
@@ -37,7 +38,7 @@ export default function PaymentDetails() {
       </div>
       <div className="flex justify-between mt-10 mb-5">
         <p className="text-gray-500 ">Grand Total</p>
-        <p className="font-semibold"> xx</p>
+        <p className="font-semibold"> {grandtotal}</p>
       </div>
       <Button
         onClick={handleOrder}

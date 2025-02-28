@@ -1,6 +1,6 @@
 import { IProduct } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { RootState } from "../store"; 
 
 export interface CartProduct extends IProduct {
   orderQuantity: number;
@@ -108,6 +108,11 @@ export const shippingCostSelector = (state: RootState) => {
     return 0;
   }
 };
+export const grandTotal = ( state:RootState) =>{
+  const subtotal = subtotalSelector(state)
+  const shippingCost  = shippingCostSelector(state)
+  return subtotal + shippingCost;
+}
 export const {
   addProduct,
   incrementOrderQuantity,
