@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { currencyFormatter } from "@/lib/CurrencyFormatter";
 import { addProduct } from "@/redux/features/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { IProduct } from "@/types/product";
@@ -58,15 +59,15 @@ const ProductCard = ({ product }: { product: IProduct }) => {
             {product?.offerPrice ? (
               <>
                 <span className="font-semibold mr-2 text-orange-400">
-                  $ {product?.offerPrice.toFixed(2)}
+                    {currencyFormatter(product?.offerPrice)}
                 </span>
                 <del className="font-semibold text-xs">
-                  $ {product?.price.toFixed(2)}
+                    {currencyFormatter(product?.price)}
                 </del>
               </>
             ) : (
               <span className="font-semibold">
-                $ {product?.price.toFixed(2)}
+                {currencyFormatter(product?.price) }
               </span>
             )}
           </p>
