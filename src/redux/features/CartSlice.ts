@@ -24,7 +24,7 @@ const cartSlice = createSlice({
       if (productToAdd) {
         productToAdd.orderQuantity += 1;
         return;
-      }   
+      }
       state.products.push({ ...action.payload, orderQuantity: 1 });
     },
     incrementOrderQuantity: (state, action) => {
@@ -44,12 +44,23 @@ const cartSlice = createSlice({
       }
     },
     removeProduct: (state, action) => {
-      state.products=  state.products.filter((product) => product._id !== action.payload);
+      state.products = state.products.filter(
+        (product) => product._id !== action.payload
+      );
     },
   },
 });
 export const orderedProductSelector = (state: RootState) => {
   return state.cart.products;
+};
+export const subtotalSelector = (state: RootState) => {
+  return state.cart.products.reduce((acc, product) => {
+    if (product.offerPrice) {
+      return acc + product.offerPrice * product.orderQuantity;
+    } else {
+      return acc + product.price * product.orderQuantity;
+    }
+  }, 0);
 };
 export const {
   addProduct,
