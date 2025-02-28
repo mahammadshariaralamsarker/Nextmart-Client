@@ -12,8 +12,9 @@ import { cities } from "@/constants/cities";
 import {
   citySelector,
   shippingAddressSelector,
-  updatecity,
-  updateshippingAddress,
+  updateCity,
+  updateShippingAddress,
+ 
 } from "@/redux/features/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
@@ -23,11 +24,11 @@ export default function Address() {
   const SelectedsippingAddress= useAppSelector(shippingAddressSelector);
 
   const handleCitySelect = (city: string) => {
-    dispatch(updatecity(city)); 
+    dispatch(updateCity(city)); 
     console.log(Selectedcity);
   };
   const handleShippingAddressSelect = (address: string) => {
-    dispatch(updateshippingAddress(address));
+    dispatch(updateShippingAddress(address));
     console.log(SelectedsippingAddress);
   };
 
